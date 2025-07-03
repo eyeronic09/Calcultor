@@ -1,26 +1,17 @@
 package com.example.calcultor.homeScreen.presentationLayer
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-
-
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.mozilla.javascript.Context
@@ -28,22 +19,44 @@ import org.mozilla.javascript.Scriptable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview(showSystemUi = true)
 fun Calculator_screen() {
     Scaffold(
-       topBar = {
-           TopAppBar(title = {Text("calculator")})
-       }
-    ){ paddingValues ->
+        topBar = {
+            TopAppBar(
+                title = { Text("Calculator", color = Color.White) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Black)
+            )
+        }
+    ) { paddingValues ->
         var expression by remember { mutableStateOf("") }
         var result by remember { mutableStateOf("") }
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues),
-            verticalArrangement = Arrangement.SpaceBetween
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Bottom
         ) {
-            Text(text = expression, fontSize = 32.sp)
-            Text(text = result, fontSize = 48.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = expression,
+                fontSize = 32.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                textAlign = TextAlign.End,
+                color = Color.White
+            )
+            Text(
+                text = result,
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                textAlign = TextAlign.End,
+                color = Color.White
+            )
 
             val buttons = listOf(
                 listOf("7", "8", "9", "/"),
@@ -54,8 +67,20 @@ fun Calculator_screen() {
             )
 
             buttons.forEach { row ->
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
                     row.forEach { label ->
+                        val backgroundColor = when (label) {
+                            "C" -> Color.White
+                            "/", "*", "-", "+", "=" -> Color(0xFFFF3B30) // Red tone
+                            else -> Color(0xFF1C1C1E) // Deep gray/black
+                        }
+                        val textColor = if (label == "C") Color.Red else Color.White
+
                         Button(
                             onClick = {
                                 when (label) {
@@ -67,19 +92,18 @@ fun Calculator_screen() {
                                     else -> expression += label
                                 }
                             },
+                            colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
                             modifier = Modifier
-                                .padding(8.dp)
-                                .weight(1f)
+                                .clip(CircleShape)
+                                .size(70.dp)
                         ) {
-                            Text(label, fontSize = 24.sp)
+                            Text(text = label, fontSize = 24.sp, color = textColor)
                         }
                     }
                 }
             }
         }
-
     }
-
 }
 
 fun evaluateExpression(expression: String): String {
