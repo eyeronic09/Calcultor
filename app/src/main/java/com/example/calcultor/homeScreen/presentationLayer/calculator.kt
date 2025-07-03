@@ -3,6 +3,9 @@ package com.example.calcultor.homeScreen.presentationLayer
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.sharp.Clear
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -57,7 +60,7 @@ fun Calculator_screen() {
                     text = expression,
                     fontFamily = NotingFonts,
                     textAlign = TextAlign.Center,
-                    fontSize = 32.sp,
+                    fontSize = 75.sp,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp)
@@ -66,7 +69,7 @@ fun Calculator_screen() {
                 Text(
                     text = result,
                     fontFamily = NotingFonts,
-                    fontSize = 48.sp,
+                    fontSize = 50.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -78,15 +81,14 @@ fun Calculator_screen() {
                 listOf("7", "8", "9", "/"),
                 listOf("4", "5", "6", "*"),
                 listOf("1", "2", "3", "-"),
-                listOf("0", ".", "=", "+"),
-                listOf("AC")
+                listOf("0", ".", "=", "+")
             )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(2f),
                 verticalArrangement = Arrangement.Bottom
-            ){
+            ) {
                 buttons.forEach { row ->
                     Row(
                         Modifier
@@ -96,9 +98,8 @@ fun Calculator_screen() {
                     ) {
                         row.forEach { label ->
                             val backgroundColor = when (label) {
-                                "C" -> Color.White
-                                "/", "*", "-", "+", "=" -> Color(0xFFFF3B30) // Red tone
-                                else -> Color(0xFF1C1C1E) // Deep gray/black
+                                "/", "*", "-", "+", "=" -> Color(0xFFFF3B30)
+                                else -> Color(0xFF1C1C1E)
                             }
                             val textColor = if (label == "AC") Color.Red else Color.White
 
@@ -106,11 +107,6 @@ fun Calculator_screen() {
                                 onClick = {
                                     when (label) {
                                         "=" -> result = evaluateExpression(expression)
-                                        "AC" -> {
-                                            expression = ""
-                                            result = ""
-                                        }
-
                                         else -> expression += label
                                     }
                                 },
@@ -131,8 +127,9 @@ fun Calculator_screen() {
                 }
 
             }
-
-
+            IconButton(onClick = {expression = ""}) {
+                Icon(imageVector = Icons.Filled.Clear, contentDescription = "")
+            }
 
         }
     }
