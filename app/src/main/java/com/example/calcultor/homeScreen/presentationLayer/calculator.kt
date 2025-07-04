@@ -39,6 +39,9 @@ fun Calculator_screen() {
     ) { paddingValues ->
         var expression by rememberSaveable { mutableStateOf("") }
         var result by rememberSaveable { mutableStateOf("") }
+        val NotingFonts = FontFamily(
+            Font(R.font.jd_lcd_rounded)
+        )
 
         Column(
             modifier = Modifier
@@ -47,9 +50,7 @@ fun Calculator_screen() {
                 .padding(16.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            val NotingFonts = FontFamily(
-                Font(R.font.jd_lcd_rounded)
-            )
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -125,10 +126,12 @@ fun Calculator_screen() {
                         }
                     }
                 }
-
             }
-            IconButton(onClick = {expression = ""}) {
-                Icon(imageVector = Icons.Filled.Clear, contentDescription = "")
+            Button(
+                onClick = { expression = "" }, modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30))
+            ) {
+                Text("clear", fontFamily = NotingFonts, fontSize = 48.sp)
             }
 
         }
