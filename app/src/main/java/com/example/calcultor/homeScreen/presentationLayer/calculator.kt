@@ -127,12 +127,23 @@ fun Calculator_screen() {
                     }
                 }
             }
-            Button(
-                onClick = { expression = "" }, modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30))
-            ) {
-                Text("clear", fontFamily = NotingFonts, fontSize = 48.sp)
+            Row {
+                Button(
+                    onClick = { expression = "" }, modifier = Modifier.fillMaxWidth(0.50f),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30))
+                ) {
+                    Text("clear", fontFamily = NotingFonts, fontSize = 48.sp)
+                }
+                Button(
+                    onClick = { if (expression.isNotEmpty()) expression = expression.dropLast(1) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30))
+                ) {
+                    Text("Backspace", fontFamily = NotingFonts ,fontSize = 48.sp, textAlign = TextAlign.Center , maxLines = 1)
+                }
+
             }
+
 
         }
     }
