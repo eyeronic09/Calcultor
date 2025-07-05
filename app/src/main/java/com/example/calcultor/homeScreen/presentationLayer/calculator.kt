@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,11 +31,12 @@ import com.example.calcultor.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Calculator_screen(calculatorVM: calcutatorVM) {
+    Scaffold() { paddingValues ->
         val NotingFonts = FontFamily(Font(R.font.jd_lcd_rounded))
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding()
+                .padding(paddingValues)
                 .padding(16.dp)
         ) {
             // Display section
@@ -145,4 +147,8 @@ fun Calculator_screen(calculatorVM: calcutatorVM) {
                 }
             }
         }
-}
+    }
+
+
+    }
+
