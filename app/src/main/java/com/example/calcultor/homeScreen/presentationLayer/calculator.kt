@@ -1,12 +1,21 @@
-import com.example.calcultor.homeScreen.presentationLayer.calcutatorVM
+package com.example.calcultor.homeScreen.presentationLayer
 
-
-
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -14,27 +23,18 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calcultor.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Calculator_screen(calcutatorVM: calcutatorVM) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Calculator") }
-            )
-        }
-    ) { paddingValues ->
+fun Calculator_screen(calculatorVM: calcutatorVM) {
         val NotingFonts = FontFamily(Font(R.font.jd_lcd_rounded))
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding()
                 .padding(16.dp)
         ) {
             // Display section
@@ -45,7 +45,7 @@ fun Calculator_screen(calcutatorVM: calcutatorVM) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = calcutatorVM.expression,
+                    text = calculatorVM.expression,
                     fontFamily = NotingFonts,
                     textAlign = TextAlign.Center,
                     fontSize = 75.sp,
@@ -55,7 +55,7 @@ fun Calculator_screen(calcutatorVM: calcutatorVM) {
                 )
                 Spacer(Modifier.height(20.dp))
                 Text(
-                    text = calcutatorVM.result,
+                    text = calculatorVM.result,
                     fontFamily = NotingFonts,
                     fontSize = 50.sp,
                     fontWeight = FontWeight.Bold,
@@ -96,9 +96,9 @@ fun Calculator_screen(calcutatorVM: calcutatorVM) {
                             Button(
                                 onClick = {
                                     when (label) {
-                                        "=" -> calcutatorVM.result =
-                                            calcutatorVM.evaluateExpression(calcutatorVM.expression)
-                                        else -> calcutatorVM.expression += label
+                                        "=" -> calculatorVM.result =
+                                            calculatorVM.evaluateExpression(calculatorVM.expression)
+                                        else -> calculatorVM.expression += label
                                     }
                                 },
                                 colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
@@ -124,8 +124,8 @@ fun Calculator_screen(calcutatorVM: calcutatorVM) {
             ) {
                 Button(
                     onClick = {
-                        calcutatorVM.expression = ""
-                        calcutatorVM.result = ""
+                        calculatorVM.expression = ""
+                        calculatorVM.result = ""
                     },
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30))
@@ -135,8 +135,8 @@ fun Calculator_screen(calcutatorVM: calcutatorVM) {
                 Spacer(Modifier.width(8.dp))
                 Button(
                     onClick = {
-                        if (calcutatorVM.expression.isNotEmpty())
-                            calcutatorVM.expression = calcutatorVM.expression.dropLast(1)
+                        if (calculatorVM.expression.isNotEmpty())
+                            calculatorVM.expression = calculatorVM.expression.dropLast(1)
                     },
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3B30))
@@ -145,12 +145,4 @@ fun Calculator_screen(calcutatorVM: calcutatorVM) {
                 }
             }
         }
-    }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun previews() {
-    val viewM = calcutatorVM()
-    Calculator_screen(viewM)
 }

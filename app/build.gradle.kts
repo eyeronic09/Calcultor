@@ -40,6 +40,9 @@ android {
 }
 
 dependencies {
+
+    val nav_version = "2.9.1"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("org.mozilla:rhino:1.7.13")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
