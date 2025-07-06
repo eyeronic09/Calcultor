@@ -23,18 +23,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             enableEdgeToEdge()
-            CalculatorTheme {       // ✅ Apply your dark/light theme here
+            CalculatorTheme {
                     val calculatorVM = remember { calcutatorVM() }
-                    MainScreenWithBottomBar(calculatorVM)// Your navigation + UI
-
+                    MainScreenWithBottomBar(calculatorVM)
             }
         }
-    }
-}
-
-@Composable
-fun SettingsScreen() {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Settings Screen")
     }
 }

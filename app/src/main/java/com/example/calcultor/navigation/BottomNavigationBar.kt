@@ -1,5 +1,6 @@
 package com.example.calcultor.navigation
 
+import android.util.Log
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -12,10 +13,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         BottomNavScreen.Calculator,
-        BottomNavScreen.Settings
+        BottomNavScreen.UnitConverter
     )
     NavigationBar {
         val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+        Log.d("Current screen" , "$currentRoute")
         items.forEach { screen ->
             NavigationBarItem(
                 icon = { Icon(screen.icon, contentDescription = screen.title) },

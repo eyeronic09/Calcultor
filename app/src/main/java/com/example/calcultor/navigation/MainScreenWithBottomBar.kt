@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.calcultor.SettingsScreen
+import com.example.calcultor.UnitScreen.ListOfConversion
 import com.example.calcultor.homeScreen.presentationLayer.Calculator_screen
 import com.example.calcultor.homeScreen.presentationLayer.calcutatorVM
 
@@ -28,8 +28,8 @@ fun MainScreenWithBottomBar(calculatorVM: calcutatorVM) {
             composable(BottomNavScreen.Calculator.route) {
                 Calculator_screen(calculatorVM)
             }
-            composable(BottomNavScreen.Settings.route) {
-                SettingsScreen()
+            composable(BottomNavScreen.UnitConverter.route) {
+                ListOfConversion()
             }
 
         }

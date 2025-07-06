@@ -148,7 +148,5 @@ fun Calculator_screen(calculatorVM: calcutatorVM) {
             }
         }
     }
-
-
-    }
+}
 
